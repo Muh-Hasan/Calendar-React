@@ -85,7 +85,7 @@ export default function Calendar(props) {
             day: "numeric",
           })}
         </b>
-        <i>{event.title}</i>
+        <h6>{event.title}</h6>
       </li>
     );
   }
@@ -96,7 +96,7 @@ export default function Calendar(props) {
       {renderSidebar()}
       <div className="demo-app-main">
         <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin ]}
           headerToolbar={{
             left: "prev,next today",
             center: "title",

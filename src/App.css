@@ -1,4 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&display=swap');
 
+*{
+    font-family: 'Epilogue', sans-serif;
+}
 html,
 body,
 body > div { /* the react root */
@@ -29,7 +33,6 @@ b { /* used for event dates/times */
 .demo-app {
   display: flex;
   min-height: 100%;
-  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;
 }
 
