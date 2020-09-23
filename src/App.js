@@ -5,7 +5,7 @@ import Calendar from './Calender/index'
 function App() {
   return (
     <div>
-      <Calendar basic />
+      <Calendar />
     </div>
   );
 }
