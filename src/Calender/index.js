@@ -11,7 +11,7 @@ export default function Calendar(props) {
   const renderSidebar = () => {
     return (
       <div className="demo-app-sidebar">
-        <div className="demo-app-sidebar-section">
+        {/* <div className="demo-app-sidebar-section">
           <h2>Instructions</h2>
           <ul>
             <li>Select dates and you will be prompted to create a new event</li>
@@ -28,7 +28,7 @@ export default function Calendar(props) {
             ></input>
             toggle weekends
           </label>
-        </div>
+        </div> */}
         <div className="demo-app-sidebar-section">
           <h2>All Events ({currentEvents.length})</h2>
           <ul>{currentEvents.map(renderSidebarEvent)}</ul>
