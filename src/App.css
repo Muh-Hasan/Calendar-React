@@ -5,12 +5,11 @@
 }
 
 .calendar .header {
-  background-color: var(--light-blue);
+  background-color: green;
   text-align: center;
   min-height: 2rem;
   line-height: 2rem;
-  color: var(--black);
-  font-family: var(--font-book);
+  color: black;
   font-weight: 700;
   display: flex;
 }
@@ -24,7 +23,7 @@
 }
 
 .calendar .body {
-  border: 1px solid var(--light-blue);
+  border: 1px solid green;
 }
 
 .calendar .header .previous {
@@ -70,13 +69,13 @@
   width: 54px;
   height: 44px;
   position: relative;
-  color: var(--black);
+  color: black;
   z-index: 100;
   line-height: 44px;
 }
 
 .calendar .day div.before {
-  color: var(--grey);
+  color: grey;
 }
 
 .calendar .day div.selected {
@@ -87,5 +86,5 @@
 }
 
 .calendar .day div.today {
-  background-color: var(--grey);
+  background-color: grey;
 }

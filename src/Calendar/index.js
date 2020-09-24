@@ -36,19 +36,40 @@ export default function Calendar() {
     return "";
   }
 
+  function currMonthName() {
+    return value.format("MMM");
+  }
+  function currYear() {
+    return value.format("YYYY");
+  }
+  function prevMonth(){
+      return value.clone().subtract(1 , 'month')
+  }
+  function nextMonth(){
+    return value.clone().add(1 , 'month')
+  }
   return (
     <div className="calendar">
-      {calendar.map((week) => (
-        <div>
-          {week.map((day) => (
-            <div className="day" onClick={() => setValue(day)}>
-              <div className={dayStyles(day)}>
-                {day.format("D").toString()}
-              </div>
-            </div>
-          ))}
+      <div className="header">
+        <div className="previous" onClick={() => setValue(prevMonth())}>{String.fromCharCode(171)}</div>
+        <div className="current">
+          {currMonthName()} {currYear()}
         </div>
-      ))}
+        <div className="next" onClick={() => setValue(nextMonth())}>{String.fromCharCode(187)}</div>
+      </div>
+      <div className="body">
+        {calendar.map((week) => (
+          <div>
+            {week.map((day) => (
+              <div className="day" onClick={() => !beforeToday(day) && setValue(day)}>
+                <div className={dayStyles(day)}>
+                  {day.format("D").toString()}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
