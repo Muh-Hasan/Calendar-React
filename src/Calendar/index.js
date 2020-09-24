@@ -63,14 +63,17 @@ export default function Calendar() {
       </div>
       <div className="body">
         <div className="day-names">
-          {["s", "m", "t", "w", "t", "f", "s"].map((d) => (
-            <div className="week">{d}</div>
+          {["s", "m", "t", "w", "t", "f", "s"].map((d, i) => (
+            <div className="week" key={i}>
+              {d}
+            </div>
           ))}
         </div>
-        {calendar.map((week) => (
-          <div>
-            {week.map((day) => (
+        {calendar.map((week, i) => (
+          <div key={i}>
+            {week.map((day, i) => (
               <div
+                key={i}
                 className="day"
                 onClick={() => !beforeToday(day) && setValue(day)}
               >
