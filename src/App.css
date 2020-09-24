@@ -80,9 +80,10 @@
 }
 
 .calendar .day div.selected {
-  background-color: var(--red);
-  color: var(--white);
+  background-color: red;
+  color: white;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .calendar .day div.today {
