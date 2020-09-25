@@ -53,15 +53,17 @@ export default function Calendar() {
   }
   console.log(isEvent);
   console.log(currDay);
+
   let eventsArray = [];
   function addEvent(day) {
     setcurrDay(day);
     setId(id + 1);
     setIsEvent(true);
     var takingValue = prompt(`add an event ${day.format("MM/DD/YY")}`);
-    eventsArray.push({ id: id, title: takingValue, day: day });
+    eventsArray.push({ id: id, title: takingValue, day: day.format('MM/DD/YY') });
     setEvents(addEvents.concat(eventsArray));
   }
+  console.log('events',addEvents);
 
   return (
     <div className="calendar">
