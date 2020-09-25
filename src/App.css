@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
+*{
+  font-family: 'Kumbh Sans', sans-serif;
+}
 .calendar {
   box-sizing: border-box;
   font-size: 1rem;

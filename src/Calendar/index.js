@@ -56,11 +56,25 @@ export default function Calendar() {
   function addEvent(day) {
     setId(id+1)
     setIsEvent(true);
-    let takingValue = prompt(`add an event ${day.format('MM/DD/YY')}`);
-    eventsArray.push({id : id  , title : takingValue , day : day}, ...eventsArray)
+    var takingValue = prompt(`add an event ${day.format('MM/DD/YY')}`);
+    eventsArray.push({id : id  , title : takingValue , day : day})
+    setEvents(addEvents.concat(eventsArray))
+    showEvents(day)
   }
-  
-  console.log(eventsArray);
+  function showEvents(day){
+    let eventsOfDay = addEvents.filter(item => item.day === day)
+    return(
+      <div>
+        {eventsOfDay.map(item => (
+          <div>
+            <h6>{item.id}</h6>
+            <h6>{item.title}</h6>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <div className="calendar">
       <div className="header">
@@ -76,7 +90,7 @@ export default function Calendar() {
       </div>
       <div className="body">
         <div className="day-names">
-          {["s", "m", "t", "w", "t", "f", "s"].map((d, i) => (
+          {moment.weekdaysShort().map((d, i) => (
             <div className="week" key={i}>
               {d}
             </div>
@@ -92,14 +106,13 @@ export default function Calendar() {
               >
                 <div className={dayStyles(day)} onClick={() => addEvent(day)}>
                   {day.format("D").toString()}
+                  {showEvents()}
                 </div>
-            {/* {isEvent ? <div>{addEvent.map(item => <h1>{item.title}</h1>)}</div> : ''} */}
               </div>
             ))}
           </div>
         ))}
       </div>
-            <div>{eventsArray.map(item => <h1>{item.title}</h1>)}</div>
     </div>
   );
 }
