@@ -48,6 +48,19 @@ export default function Calendar() {
   function nextMonth() {
     return value.clone().add(1, "month");
   }
+
+  const [isEvent, setIsEvent] = useState(false);
+  const [addEvents, setEvents] = useState([]);
+
+  var eventsArray = [];
+  function addEvent(day) {
+    setIsEvent(true);
+    let takingValue = prompt(`add an event ${day.format()}`);
+    eventsArray.push(takingValue);
+    setEvents(eventsArray);
+  }
+
+  console.log(addEvents);
   return (
     <div className="calendar">
       <div className="header">
@@ -77,7 +90,7 @@ export default function Calendar() {
                 className="day"
                 onClick={() => !beforeToday(day) && setValue(day)}
               >
-                <div className={dayStyles(day)}>
+                <div className={dayStyles(day)} onClick={() => addEvent(day)}>
                   {day.format("D").toString()}
                 </div>
               </div>
