@@ -4,6 +4,9 @@ import moment from "moment";
 export default function Calendar() {
   const [value, setValue] = useState(moment());
   const [calendar, setCalendar] = useState([]);
+  const [isEvent, setIsEvent] = useState(false);
+  const [addEvents, setEvents] = useState([]);
+  const [id, setId] = useState(0);
   let startDay = value.clone().startOf("month").startOf("week");
   let endDay = value.clone().endOf("month").endOf("week");
   let day = startDay.clone().subtract(1, "day");
@@ -19,7 +22,6 @@ export default function Calendar() {
     }
     setCalendar(tempArray); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
-
   function isSelected(day) {
     return value.isSame(day, "day");
   }
@@ -49,10 +51,6 @@ export default function Calendar() {
     return value.clone().add(1, "month");
   }
 
-  const [isEvent, setIsEvent] = useState(false);
-  const [addEvents, setEvents] = useState([]);
-  const [id, setId] = useState(0);
-  const [currDay, setcurrDay] = useState("");
   let eventsArray = [];
   function addEvent(day) {
     setcurrDay(day);
@@ -61,19 +59,8 @@ export default function Calendar() {
     var takingValue = prompt(`add an event ${day.format("MM/DD/YY")}`);
     eventsArray.push({ id: id, title: takingValue, day: day });
     setEvents(addEvents.concat(eventsArray));
-    return (
-      <div>
-        {addEvents
-          .filter((item) => item.day === currDay)
-          .map((item) => (
-            <div>
-              <h6>{item.title}</h6>
-            </div>
-          ))}
-      </div>
-    );
   }
-  console.log(currDay);
+
   return (
     <div className="calendar">
       <div className="header">
