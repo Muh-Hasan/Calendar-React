@@ -51,16 +51,16 @@ export default function Calendar() {
 
   const [isEvent, setIsEvent] = useState(false);
   const [addEvents, setEvents] = useState([]);
-
-  var eventsArray = [];
+  const [id , setId] = useState(0)
+  let eventsArray = []
   function addEvent(day) {
+    setId(id+1)
     setIsEvent(true);
-    let takingValue = prompt(`add an event ${day.format()}`);
-    eventsArray.push(takingValue);
-    setEvents(eventsArray);
+    let takingValue = prompt(`add an event ${day.format('MM/DD/YY')}`);
+    eventsArray.push({id : id  , title : takingValue , day : day}, ...eventsArray)
   }
-
-  console.log(addEvents);
+  
+  console.log(eventsArray);
   return (
     <div className="calendar">
       <div className="header">
@@ -93,11 +93,13 @@ export default function Calendar() {
                 <div className={dayStyles(day)} onClick={() => addEvent(day)}>
                   {day.format("D").toString()}
                 </div>
+            {/* {isEvent ? <div>{addEvent.map(item => <h1>{item.title}</h1>)}</div> : ''} */}
               </div>
             ))}
           </div>
         ))}
       </div>
+            <div>{eventsArray.map(item => <h1>{item.title}</h1>)}</div>
     </div>
   );
 }
