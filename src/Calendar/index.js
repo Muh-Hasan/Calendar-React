@@ -51,7 +51,8 @@ export default function Calendar() {
   function nextMonth() {
     return value.clone().add(1, "month");
   }
-
+  console.log(isEvent);
+  console.log(currDay);
   let eventsArray = [];
   function addEvent(day) {
     setcurrDay(day);
