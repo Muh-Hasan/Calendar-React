@@ -51,30 +51,29 @@ export default function Calendar() {
 
   const [isEvent, setIsEvent] = useState(false);
   const [addEvents, setEvents] = useState([]);
-  const [id , setId] = useState(0)
-  let eventsArray = []
+  const [id, setId] = useState(0);
+  const [currDay, setcurrDay] = useState("");
+  let eventsArray = [];
   function addEvent(day) {
-    setId(id+1)
+    setcurrDay(day);
+    setId(id + 1);
     setIsEvent(true);
-    var takingValue = prompt(`add an event ${day.format('MM/DD/YY')}`);
-    eventsArray.push({id : id  , title : takingValue , day : day})
-    setEvents(addEvents.concat(eventsArray))
-    showEvents(day)
-  }
-  function showEvents(day){
-    let eventsOfDay = addEvents.filter(item => item.day === day)
-    return(
+    var takingValue = prompt(`add an event ${day.format("MM/DD/YY")}`);
+    eventsArray.push({ id: id, title: takingValue, day: day });
+    setEvents(addEvents.concat(eventsArray));
+    return (
       <div>
-        {eventsOfDay.map(item => (
-          <div>
-            <h6>{item.id}</h6>
-            <h6>{item.title}</h6>
-          </div>
-        ))}
+        {addEvents
+          .filter((item) => item.day === currDay)
+          .map((item) => (
+            <div>
+              <h6>{item.title}</h6>
+            </div>
+          ))}
       </div>
-    )
+    );
   }
-
+  console.log(currDay);
   return (
     <div className="calendar">
       <div className="header">
@@ -104,10 +103,13 @@ export default function Calendar() {
                 className="day"
                 onClick={() => !beforeToday(day) && setValue(day)}
               >
-                <div className={dayStyles(day)} onClick={() => addEvent(day)}>
+                <div
+                  className={dayStyles(day)}
+                  onClick={() => !beforeToday(day) && addEvent(day)}
+                >
                   {day.format("D").toString()}
-                  {showEvents()}
                 </div>
+                <div></div>
               </div>
             ))}
           </div>
