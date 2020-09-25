@@ -7,6 +7,7 @@ export default function Calendar() {
   const [isEvent, setIsEvent] = useState(false);
   const [addEvents, setEvents] = useState([]);
   const [id, setId] = useState(0);
+  const [currDay, setcurrDay] = useState("");
   let startDay = value.clone().startOf("month").startOf("week");
   let endDay = value.clone().endOf("month").endOf("week");
   let day = startDay.clone().subtract(1, "day");
