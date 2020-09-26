@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useEffect, useState } from "react";
+import React, { createContext, useReducer } from "react";
 import Appreducer from "./Appreducer";
 
 const initailState = {

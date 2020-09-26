@@ -5,9 +5,7 @@ import { EventsContext } from "./Context/Context";
 export default function Calendar() {
   const [value, setValue] = useState(moment());
   const [calendar, setCalendar] = useState([]);
-  const [isEvent, setIsEvent] = useState(false);
   const [id, setId] = useState(0);
-  const [currDay, setcurrDay] = useState("");
   const [userEvent, setUserEvent] = useState("");
   const [userFrom, setUserFrom] = useState("");
   const [userTo, setUserTo] = useState("");
@@ -60,13 +58,12 @@ export default function Calendar() {
     setId(id + 1);
     addingEvents({
       id: id,
-      day: day.format("MM/DD/YY"),
+      day: value.format("MM/DD/YY"),
       title: userEvent,
       from: userFrom,
       to: userTo,
     });
   }
-
   return (
     <div>
       <div>
