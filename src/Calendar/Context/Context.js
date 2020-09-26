@@ -1,21 +1,36 @@
 import React, { createContext, useReducer, useEffect, useState } from "react";
-import moment from "moment";
+import Appreducer from "./Appreducer";
 
-const [value, setValue] = useState(moment());
-const [calendar, setCalendar] = useState([]);
-let startDay = value.clone().startOf("month").startOf("week");
-let endDay = value.clone().endOf("month").endOf("week");
-let day = startDay.clone().subtract(1, "day");
+const initailState = {
+  events: [],
+};
 
-useEffect(() => {
-  let tempArray = [];
-  while (day.isBefore(endDay, "day")) {
-    tempArray.push(
-      Array(7)
-        .fill(0)
-        .map(() => day.add(1, "day").clone())
-    );
+export const EventsContext = createContext(initailState);
+
+export const EventsProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(Appreducer, initailState);
+
+  function addingEvents(event) {
+    dispatch({
+      type: "addEvent",
+      payload: event,
+    });
   }
-  setCalendar(tempArray); // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [value]);
-const calendar = [{ calendar: calendar }, { events: [] }];
+  function remove(id) {
+    dispatch({
+      type: "remove",
+      payload: id,
+    });
+  }
+  return (
+    <EventsContext.Provider
+      value={{
+        events: state.events,
+        addingEvents,
+        remove,
+      }}
+    >
+      {children}
+    </EventsContext.Provider>
+  );
+};

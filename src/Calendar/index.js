@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
+import { EventsContext } from "./Context/Context";
 
 export default function Calendar() {
   const [value, setValue] = useState(moment());
   const [calendar, setCalendar] = useState([]);
   const [isEvent, setIsEvent] = useState(false);
-  const [addEvents, setEvents] = useState([]);
   const [id, setId] = useState(0);
   const [currDay, setcurrDay] = useState("");
+  const [userEvent, setUserEvent] = useState("");
+  const [userFrom, setUserFrom] = useState("");
+  const [userTo, setUserTo] = useState("");
+  const { events, addingEvents, remove } = useContext(EventsContext);
   let startDay = value.clone().startOf("month").startOf("week");
   let endDay = value.clone().endOf("month").endOf("week");
   let day = startDay.clone().subtract(1, "day");
@@ -23,6 +27,7 @@ export default function Calendar() {
     }
     setCalendar(tempArray); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
+
   function isSelected(day) {
     return value.isSame(day, "day");
   }
@@ -38,7 +43,6 @@ export default function Calendar() {
     if (isToday(day)) return "today";
     return "";
   }
-
   function currMonthName() {
     return value.format("MMM");
   }
@@ -51,28 +55,33 @@ export default function Calendar() {
   function nextMonth() {
     return value.clone().add(1, "month");
   }
-  let eventsArray = [];
-  function addEvent(day) {
+  function setCurrentDay(day) {
     setcurrDay(day);
-    setId(id + 1);
-    setIsEvent(true);
-    var takingValue = prompt(`add an event ${day.format("MM/DD/YY")}`);
-    eventsArray.push({
-      id: id,
-      title: takingValue,
-      day: day.format("MM/DD/YY"),
-    });
-    setEvents(addEvents.concat(eventsArray));
   }
-  const [userEvent, setUserEvent] = useState("");
-  const [userFrom, setUserFrom] = useState("");
-  const [userTo, setUserTo] = useState("");
   function submit() {
-    console.log(userEvent);
-    console.log(userFrom);
-    console.log(userTo);
+    setId(id + 1);
+    addingEvents({
+      id: id,
+      day: day.format("MM/DD/YY"),
+      title: userEvent,
+      from: userFrom,
+      to: userTo,
+    });
   }
-
+  // function show() {
+  //   let showingEvents = ;
+  //   return (
+  //     <div>
+  //       {showingEvents.map((item) => (
+  //         <div>
+  //           <h6>{item.title}</h6>
+  //           <button onClick={remove(item.id)}>remove</button>
+  //         </div>
+  //       ))}
+  //     </div>
+  //   );
+  // }
+  console.log(events.filter((item) => item.day === day.format("MM/DD/YY")));
   return (
     <div>
       <div>
@@ -92,6 +101,15 @@ export default function Calendar() {
           onChange={(e) => setUserTo(e.currentTarget.value)}
         />
         <button onClick={() => submit()}>Add</button>
+        {events.length <= 0
+          ? ""
+          : events
+              .filter((item) => item.day === day.format("MM/DD/YY"))
+              .map((item) => (
+                <div key={item.id}>
+                  <h6>{item.title}</h6>
+                </div>
+              ))}
       </div>
       <div className="calendar">
         <div className="header">
@@ -123,7 +141,7 @@ export default function Calendar() {
                 >
                   <div
                     className={dayStyles(day)}
-                    onClick={() => !beforeToday(day) && addEvent(day)}
+                    onClick={() => !beforeToday(day) && setCurrentDay(day)}
                   >
                     {day.format("D").toString()}
                   </div>

@@ -1,12 +1,15 @@
 import React from "react";
 import "./App.css";
-import Calendar from './Calendar/index'
+import Calendar from "./Calendar/index";
+import { EventsProvider } from "./Calendar/Context/Context";
 
 function App() {
   return (
-    <div>
-      <Calendar />
-    </div>
+    <EventsProvider>
+      <div>
+        <Calendar />
+      </div>
+    </EventsProvider>
   );
 }
 
