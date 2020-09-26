@@ -55,9 +55,7 @@ export default function Calendar() {
   function nextMonth() {
     return value.clone().add(1, "month");
   }
-  function setCurrentDay(day) {
-    setcurrDay(day);
-  }
+
   function submit() {
     setId(id + 1);
     addingEvents({
@@ -68,20 +66,7 @@ export default function Calendar() {
       to: userTo,
     });
   }
-  // function show() {
-  //   let showingEvents = ;
-  //   return (
-  //     <div>
-  //       {showingEvents.map((item) => (
-  //         <div>
-  //           <h6>{item.title}</h6>
-  //           <button onClick={remove(item.id)}>remove</button>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   );
-  // }
-  console.log(events.filter((item) => item.day === day.format("MM/DD/YY")));
+
   return (
     <div>
       <div>
@@ -101,15 +86,21 @@ export default function Calendar() {
           onChange={(e) => setUserTo(e.currentTarget.value)}
         />
         <button onClick={() => submit()}>Add</button>
-        {events.length <= 0
-          ? ""
-          : events
-              .filter((item) => item.day === day.format("MM/DD/YY"))
-              .map((item) => (
-                <div key={item.id}>
-                  <h6>{item.title}</h6>
-                </div>
-              ))}
+        {events.length <= 0 ? (
+          <h6>No events for today</h6>
+        ) : (
+          events
+            .filter((item) => item.day === value.format("MM/DD/YY"))
+            .map((item) => (
+              <div key={item.id}>
+                <h6>
+                  {item.from} - {item.to}
+                </h6>
+                <h6>{item.title}</h6>
+                <button onClick={() => remove(item.id)}>remove</button>
+              </div>
+            ))
+        )}
       </div>
       <div className="calendar">
         <div className="header">
@@ -141,7 +132,7 @@ export default function Calendar() {
                 >
                   <div
                     className={dayStyles(day)}
-                    onClick={() => !beforeToday(day) && setCurrentDay(day)}
+                    onClick={() => !beforeToday(day)}
                   >
                     {day.format("D").toString()}
                   </div>
