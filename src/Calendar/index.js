@@ -51,60 +51,88 @@ export default function Calendar() {
   function nextMonth() {
     return value.clone().add(1, "month");
   }
-  console.log(isEvent);
-  console.log(currDay);
-
   let eventsArray = [];
   function addEvent(day) {
     setcurrDay(day);
     setId(id + 1);
     setIsEvent(true);
     var takingValue = prompt(`add an event ${day.format("MM/DD/YY")}`);
-    eventsArray.push({ id: id, title: takingValue, day: day.format('MM/DD/YY') });
+    eventsArray.push({
+      id: id,
+      title: takingValue,
+      day: day.format("MM/DD/YY"),
+    });
     setEvents(addEvents.concat(eventsArray));
   }
-  console.log('events',addEvents);
+  const [userEvent, setUserEvent] = useState("");
+  const [userFrom, setUserFrom] = useState("");
+  const [userTo, setUserTo] = useState("");
+  function submit() {
+    console.log(userEvent);
+    console.log(userFrom);
+    console.log(userTo);
+  }
 
   return (
-    <div className="calendar">
-      <div className="header">
-        <div className="previous" onClick={() => setValue(prevMonth())}>
-          {String.fromCharCode(171)}
-        </div>
-        <div className="current">
-          {currMonthName()} {currYear()}
-        </div>
-        <div className="next" onClick={() => setValue(nextMonth())}>
-          {String.fromCharCode(187)}
-        </div>
+    <div>
+      <div>
+        <input
+          type="text"
+          placeholder="event"
+          onChange={(e) => setUserEvent(e.currentTarget.value)}
+        />
+        <input
+          type="text"
+          placeholder="from"
+          onChange={(e) => setUserFrom(e.currentTarget.value)}
+        />
+        <input
+          type="text"
+          placeholder="to"
+          onChange={(e) => setUserTo(e.currentTarget.value)}
+        />
+        <button onClick={() => submit()}>Add</button>
       </div>
-      <div className="body">
-        <div className="day-names">
-          {moment.weekdaysShort().map((d, i) => (
-            <div className="week" key={i}>
-              {d}
-            </div>
-          ))}
+      <div className="calendar">
+        <div className="header">
+          <div className="previous" onClick={() => setValue(prevMonth())}>
+            {String.fromCharCode(171)}
+          </div>
+          <div className="current">
+            {currMonthName()} {currYear()}
+          </div>
+          <div className="next" onClick={() => setValue(nextMonth())}>
+            {String.fromCharCode(187)}
+          </div>
         </div>
-        {calendar.map((week, i) => (
-          <div key={i}>
-            {week.map((day, i) => (
-              <div
-                key={i}
-                className="day"
-                onClick={() => !beforeToday(day) && setValue(day)}
-              >
-                <div
-                  className={dayStyles(day)}
-                  onClick={() => !beforeToday(day) && addEvent(day)}
-                >
-                  {day.format("D").toString()}
-                </div>
-                <div></div>
+        <div className="body">
+          <div className="day-names">
+            {moment.weekdaysShort().map((d, i) => (
+              <div className="week" key={i}>
+                {d}
               </div>
             ))}
           </div>
-        ))}
+          {calendar.map((week, i) => (
+            <div key={i}>
+              {week.map((day, i) => (
+                <div
+                  key={i}
+                  className="day"
+                  onClick={() => !beforeToday(day) && setValue(day)}
+                >
+                  <div
+                    className={dayStyles(day)}
+                    onClick={() => !beforeToday(day) && addEvent(day)}
+                  >
+                    {day.format("D").toString()}
+                  </div>
+                  <div></div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
