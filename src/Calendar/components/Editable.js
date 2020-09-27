@@ -23,29 +23,30 @@ export default function Editable({ value }) {
 
   return (
     <div className="edit-box">
-      <div className='edit-date'>
+      <div className="edit-date">
         <h1>{value.format("DD")}</h1>
         <h3>{value.format("dddd")}</h3>
       </div>
       <div>
         <div>
           {events.length <= 0 ? (
-            <h6>No events for today</h6>
+            <div className='no-event'>
+              <h6>No events for today</h6>
+            </div>
           ) : (
-            events
-              .filter((item) => item.day === value.format("MM/DD/YY"))
-              .map((item) => (
-                <div key={item.id}>
-                  <div>
-                    <h4>Current Events:</h4>
+            <div className='events'>
+              {events
+                .filter((item) => item.day === value.format("MM/DD/YY"))
+                .map((item) => (
+                  <div key={item.id} className='event-list'>
+                    <h4>
+                      {item.from} - {item.to}
+                    </h4>
+                    <h4>{item.title}</h4>
+                    <button onClick={() => remove(item.id)}>remove</button>
                   </div>
-                  <span>
-                    {item.from} - {item.to}
-                  </span>
-                  <span>{item.title}</span>
-                  <button onClick={() => remove(item.id)}>remove</button>
-                </div>
-              ))
+                ))}
+            </div>
           )}
         </div>
       </div>
@@ -61,13 +62,13 @@ export default function Editable({ value }) {
         </div>
         <div>
           <input
-            type="text"
+            type="number"
             placeholder="from"
             onChange={(e) => setUserFrom(e.currentTarget.value)}
             value={userFrom}
           />
           <input
-            type="text"
+            type="number"
             placeholder="to"
             onChange={(e) => setUserTo(e.currentTarget.value)}
             value={userTo}

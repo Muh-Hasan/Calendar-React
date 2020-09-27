@@ -6,7 +6,6 @@
 .calendar {
   box-sizing: border-box;
   font-size: 1rem;
-  max-width: 400px;
 }
 
 .calendar .header {
@@ -96,13 +95,15 @@
 
 .display-both {
   display: flex;
+  align-content: center;
   justify-content: center;
   height: 400px;
 }
 
 .edit-box {
   text-align: center;
-  width: 300px;
+  /* width: 300px; */
+  flex: 0.4;
   background-color: #e11900;
   color: white;
 }
@@ -123,4 +124,25 @@
   letter-spacing: 2px;
   margin-top: 5px;
   margin-bottom: 20px;
+}
+.no-event {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.events {
+  overflow-y: scroll;
+  height: 100px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.event-list {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+.event-list h4 {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: 400;
 }
