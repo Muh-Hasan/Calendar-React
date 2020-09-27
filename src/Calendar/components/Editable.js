@@ -30,20 +30,20 @@ export default function Editable({ value }) {
       <div>
         <div>
           {events.length <= 0 ? (
-            <div className='no-event'>
+            <div className="no-event">
               <h6>No events for today</h6>
             </div>
           ) : (
-            <div className='events'>
+            <div className="events">
               {events
                 .filter((item) => item.day === value.format("MM/DD/YY"))
                 .map((item) => (
-                  <div key={item.id} className='event-list'>
+                  <div key={item.id} className="event-list">
                     <h4>
                       {item.from} - {item.to}
                     </h4>
                     <h4>{item.title}</h4>
-                    <button onClick={() => remove(item.id)}>remove</button>
+                    <button  onClick={() => remove(item.id)}>x</button>
                   </div>
                 ))}
             </div>
@@ -54,20 +54,24 @@ export default function Editable({ value }) {
       <div>
         <div>
           <input
+            maxLength={10}
             type="text"
             placeholder="event"
             onChange={(e) => setUserEvent(e.currentTarget.value)}
             value={userEvent}
+            required={true}
           />
         </div>
         <div>
           <input
+            required={true}
             type="number"
             placeholder="from"
             onChange={(e) => setUserFrom(e.currentTarget.value)}
             value={userFrom}
           />
           <input
+            required={true}
             type="number"
             placeholder="to"
             onChange={(e) => setUserTo(e.currentTarget.value)}
