@@ -173,11 +173,3 @@ body {
   margin-left: 33px;
   text-align: left;
 }
-@media (max-width: 650px) {
-  .edit-box {
-    flex: 1;
-  }
-  .calendar {
-    flex: 1;
-  }
-}
