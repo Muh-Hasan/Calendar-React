@@ -60,9 +60,10 @@ export default function Editable({ value }) {
             onChange={(e) => setUserEvent(e.currentTarget.value)}
             value={userEvent}
             required={true}
+            className='input-1'
           />
         </div>
-        <div>
+        <div className='from-to'>
           <input
             required={true}
             type="number"
@@ -71,6 +72,7 @@ export default function Editable({ value }) {
             value={userFrom}
           />
           <input
+            className='one-input'
             required={true}
             type="number"
             placeholder="to"
@@ -79,7 +81,9 @@ export default function Editable({ value }) {
           />
         </div>
       </div>
-      <button onClick={() => submit()}>Add</button>
+      <div className='btn-submit'>
+      <button   onClick={() => submit()}>Add</button>
+      </div>
     </div>
   );
 }
