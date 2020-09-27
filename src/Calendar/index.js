@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { EventsContext } from "./Context/Context";
+import Editable from "./components/Editable";
 
 export default function Calendar() {
   const [value, setValue] = useState(moment());
   const [calendar, setCalendar] = useState([]);
-  const [id, setId] = useState(0);
-  const [userEvent, setUserEvent] = useState("");
-  const [userFrom, setUserFrom] = useState("");
-  const [userTo, setUserTo] = useState("");
-  const { events, addingEvents, remove } = useContext(EventsContext);
   let startDay = value.clone().startOf("month").startOf("week");
   let endDay = value.clone().endOf("month").endOf("week");
   let day = startDay.clone().subtract(1, "day");
+
 
   useEffect(() => {
     let tempArray = [];
@@ -54,51 +50,9 @@ export default function Calendar() {
     return value.clone().add(1, "month");
   }
 
-  function submit() {
-    setId(id + 1);
-    addingEvents({
-      id: id,
-      day: value.format("MM/DD/YY"),
-      title: userEvent,
-      from: userFrom,
-      to: userTo,
-    });
-  }
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          placeholder="event"
-          onChange={(e) => setUserEvent(e.currentTarget.value)}
-        />
-        <input
-          type="text"
-          placeholder="from"
-          onChange={(e) => setUserFrom(e.currentTarget.value)}
-        />
-        <input
-          type="text"
-          placeholder="to"
-          onChange={(e) => setUserTo(e.currentTarget.value)}
-        />
-        <button onClick={() => submit()}>Add</button>
-        {events.length <= 0 ? (
-          <h6>No events for today</h6>
-        ) : (
-          events
-            .filter((item) => item.day === value.format("MM/DD/YY"))
-            .map((item) => (
-              <div key={item.id}>
-                <h6>
-                  {item.from} - {item.to}
-                </h6>
-                <h6>{item.title}</h6>
-                <button onClick={() => remove(item.id)}>remove</button>
-              </div>
-            ))
-        )}
-      </div>
+    <div className="display-both">
+      <Editable value={value} />
       <div className="calendar">
         <div className="header">
           <div className="previous" onClick={() => setValue(prevMonth())}>

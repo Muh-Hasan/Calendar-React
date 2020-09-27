@@ -92,3 +92,17 @@
 .calendar .day div.today {
   background-color: grey;
 }
+
+.display-both{
+  display: flex;
+  justify-content: center;
+  height: 400px;
+}
+
+.edit-box{
+width: 400px;
+border: 1px solid black;
+}
+.have-events{
+  background-color: brown;
+}
