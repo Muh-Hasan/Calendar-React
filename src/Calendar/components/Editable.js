@@ -23,14 +23,11 @@ export default function Editable({ value }) {
 
   return (
     <div className="edit-box">
-      <div>
+      <div className='edit-date'>
         <h1>{value.format("DD")}</h1>
         <h3>{value.format("dddd")}</h3>
       </div>
       <div>
-        <div>
-          <h4>Current Events:</h4>
-        </div>
         <div>
           {events.length <= 0 ? (
             <h6>No events for today</h6>
@@ -39,8 +36,11 @@ export default function Editable({ value }) {
               .filter((item) => item.day === value.format("MM/DD/YY"))
               .map((item) => (
                 <div key={item.id}>
+                  <div>
+                    <h4>Current Events:</h4>
+                  </div>
                   <span>
-                    - {item.from} - {item.to}
+                    {item.from} - {item.to}
                   </span>
                   <span>{item.title}</span>
                   <button onClick={() => remove(item.id)}>remove</button>
