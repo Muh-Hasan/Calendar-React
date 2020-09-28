@@ -22,67 +22,54 @@ export default function Editable({ value }) {
   }
 
   return (
-    <div className="edit-box">
-      <div className="edit-date">
-        <h1>{value.format("DD")}</h1>
-        <h3>{value.format("dddd")}</h3>
+    <div className="left-side">
+      <div className="current-day text-center">
+        <h1 className="calendar-left-side-day">{value.format("DD")}</h1>
+        <div className="calendar-left-side-day-of-week">{value.format("dddd")}</div>
       </div>
-      <div>
-        <div>
-          {events.length <= 0 ? (
-            <div className="no-event">
-              <h6>No events for today</h6>
-            </div>
-          ) : (
-            <div className="events">
+      <div className="current-day-events">
+        {events.length <= 0 ? (
+          <div className="no-event">
+            <h6>No events for today</h6>
+          </div>
+        ) : (
+          <>
+            <div>Current Events:</div>
+            <ul className="current-day-events-list">
               {events
                 .filter((item) => item.day === value.format("MM/DD/YY"))
-                .map((item) => (
-                  <div key={item.id} className="event-list">
-                    <h4>
-                      {item.from} - {item.to}
-                    </h4>
-                    <h4>{item.title}</h4>
-                    <button  onClick={() => remove(item.id)}>x</button>
-                  </div>
+                .map((item , i) => (
+                  <li key={i}>
+                    {item.from} - {item.to} {item.title} <button className='btn-remove' onClick={() => remove(item.id)}>x</button>
+                  </li>
                 ))}
-            </div>
-          )}
-        </div>
+            </ul>
+          </>
+        )}
       </div>
-
-      <div>
-        <div>
-          <input
-            maxLength={10}
-            type="text"
-            placeholder="event"
-            onChange={(e) => setUserEvent(e.currentTarget.value)}
-            value={userEvent}
-            required={true}
-            className='input-1'
-          />
-        </div>
-        <div className='from-to'>
-          <input
-            required={true}
-            type="number"
-            placeholder="from"
-            onChange={(e) => setUserFrom(e.currentTarget.value)}
-            value={userFrom}
-          />
-          <input
-            className='one-input'
-            required={true}
-            type="number"
-            placeholder="to"
-            onChange={(e) => setUserTo(e.currentTarget.value)}
-            value={userTo}
-          />
-        </div>
-      </div>
-      <div className='btn-submit'>
-      <button   onClick={() => submit()}>Add</button>
+      <div className="add-event-day">
+        <input
+          type="number"
+          className="add-event-day-field"
+          placeholder="from"
+          onChange={(e) => setUserFrom(e.currentTarget.value)}
+          value={userFrom}
+        />
+        <input
+          type="number"
+          className="add-event-day-field"
+          placeholder="to"
+          onChange={(e) => setUserTo(e.currentTarget.value)}
+          value={userTo}
+        />
+        <input
+          type="text"
+          className="add-event-day-field"
+          placeholder="Create an Event"
+          onChange={(e) => setUserEvent(e.currentTarget.value)}
+          value={userEvent}
+        />
+        <span className="fa fa-plus-circle cursor-pointer add-event-day-field-btn" onClick={() => submit()}></span>
       </div>
     </div>
   );

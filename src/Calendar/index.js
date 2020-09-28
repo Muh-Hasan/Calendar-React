@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import Editable from "./components/Editable";
-import './calendar.css'
+import "./calendar.css";
+import { EventsContext } from "./Context/Context";
 
 export default function Calendar() {
   const [value, setValue] = useState(moment());
@@ -9,7 +10,6 @@ export default function Calendar() {
   let startDay = value.clone().startOf("month").startOf("week");
   let endDay = value.clone().endOf("month").endOf("week");
   let day = startDay.clone().subtract(1, "day");
-
 
   useEffect(() => {
     let tempArray = [];
@@ -32,14 +32,14 @@ export default function Calendar() {
   function isToday(day) {
     return day.isSame(new Date(), "day");
   }
+  const { events } = useContext(EventsContext);
   function dayStyles(day) {
     if (beforeToday(day)) return "before";
-    if (isSelected(day)) return "selected";
-    if (isToday(day)) return "today";
+    if (isSelected(day)) return "selected-day";
+    if (isToday(day)) return "active-day";
+    if (events.filter((item) => item.day === value.format("MM/DD/YY")))
+      return "event-day";
     return "";
-  }
-  function currMonthName() {
-    return value.format("MMM");
   }
   function currYear() {
     return value.format("YYYY");
@@ -50,48 +50,57 @@ export default function Calendar() {
   function nextMonth() {
     return value.clone().add(1, "month");
   }
-
   return (
-    <div className="display-both">
+    <div className="calendar disable-selection">
       <Editable value={value} />
-      <div className="calendar">
-        <div className="header">
-          <div className="previous" onClick={() => setValue(prevMonth())}>
-            {String.fromCharCode(171)}
-          </div>
-          <div className="current">
-            {currMonthName()} {currYear()}
-          </div>
-          <div className="next" onClick={() => setValue(nextMonth())}>
-            {String.fromCharCode(187)}
+      <div className="right-side">
+        <div className="text-right calendar-change-year">
+          <div className="calendar-change-year-slider">
+            <span
+              className="fa fa-caret-left cursor-pointer calendar-change-year-slider-prev"
+              onClick={() => setValue(prevMonth())}
+            ></span>
+            <span className="calendar-current-year">{currYear()}</span>
+            <span
+              className="fa fa-caret-right cursor-pointer calendar-change-year-slider-next"
+              onClick={() => setValue(nextMonth())}
+            ></span>
           </div>
         </div>
-        <div className="body">
-          <div className="day-names">
-            {moment.weekdaysShort().map((d, i) => (
-              <div className="week" key={i}>
-                {d}
-              </div>
+        <div className="calendar-month-list">
+          <ul className="calendar-month">
+            {moment.monthsShort().map((m, i) => (
+              <li key={i} className={value.format("MMM") === m ? "active" : ""}>
+                {m}
+              </li>
             ))}
-          </div>
+          </ul>
+        </div>
+        <div className="calendar-week-list">
+          <ul className="calendar-week">
+            {moment.weekdaysShort().map((d, i) => (
+              <li
+                key={i}
+                className={value.format("ddd") === d ? "weekActive" : ""}
+              >
+                {d}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="calendar-day-list">
           {calendar.map((week, i) => (
-            <div key={i}>
+            <ul className="calendar-days" key={i}>
               {week.map((day, i) => (
-                <div
+                <li
                   key={i}
-                  className="day"
+                  className={dayStyles(day)}
                   onClick={() => !beforeToday(day) && setValue(day)}
                 >
-                  <div
-                    className={dayStyles(day)}
-                    onClick={() => !beforeToday(day)}
-                  >
-                    {day.format("D").toString()}
-                  </div>
-                  <div></div>
-                </div>
+                  {day.format("D").toString()}
+                </li>
               ))}
-            </div>
+            </ul>
           ))}
         </div>
       </div>

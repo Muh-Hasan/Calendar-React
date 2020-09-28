@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+// import "./App.css";
 import Calendar from "./Calendar/index";
 import { EventsProvider } from "./Calendar/Context/Context";
 
