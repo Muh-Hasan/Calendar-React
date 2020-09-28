@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import Editable from "./components/Editable";
+import './calendar.css'
 
 export default function Calendar() {
   const [value, setValue] = useState(moment());
