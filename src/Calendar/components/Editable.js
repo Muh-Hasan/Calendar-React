@@ -25,7 +25,9 @@ export default function Editable({ value }) {
     <div className="left-side">
       <div className="current-day text-center">
         <h1 className="calendar-left-side-day">{value.format("DD")}</h1>
-        <div className="calendar-left-side-day-of-week">{value.format("dddd")}</div>
+        <div className="calendar-left-side-day-of-week">
+          {value.format("dddd")}
+        </div>
       </div>
       <div className="current-day-events">
         {events.length <= 0 ? (
@@ -38,9 +40,15 @@ export default function Editable({ value }) {
             <ul className="current-day-events-list">
               {events
                 .filter((item) => item.day === value.format("MM/DD/YY"))
-                .map((item , i) => (
+                .map((item, i) => (
                   <li key={i}>
-                    {item.from} - {item.to} {item.title} <button className='btn-remove' onClick={() => remove(item.id)}>x</button>
+                    {item.from} - {item.to} {item.title}{" "}
+                    <button
+                      className="btn-remove"
+                      onClick={() => remove(item.id)}
+                    >
+                      x
+                    </button>
                   </li>
                 ))}
             </ul>
@@ -49,27 +57,30 @@ export default function Editable({ value }) {
       </div>
       <div className="add-event-day">
         <input
-          type="number"
+          type="text"
           className="add-event-day-field"
-          placeholder="from"
+          placeholder="1 pm"
           onChange={(e) => setUserFrom(e.currentTarget.value)}
           value={userFrom}
         />
         <input
-          type="number"
+          type="text"
           className="add-event-day-field"
-          placeholder="to"
+          placeholder="3 pm"
           onChange={(e) => setUserTo(e.currentTarget.value)}
           value={userTo}
         />
         <input
           type="text"
           className="add-event-day-field"
-          placeholder="Create an Event"
+          placeholder="Describe your Event"
           onChange={(e) => setUserEvent(e.currentTarget.value)}
           value={userEvent}
         />
-        <span className="fa fa-plus-circle cursor-pointer add-event-day-field-btn" onClick={() => submit()}></span>
+        <span
+          className="fa fa-plus-circle cursor-pointer add-event-day-field-btn"
+          onClick={() => submit()}
+        ></span>
       </div>
     </div>
   );

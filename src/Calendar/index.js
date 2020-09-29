@@ -96,7 +96,14 @@ export default function Calendar() {
                   className={dayStyles(day)}
                   onClick={() => !beforeToday(day) && setValue(day)}
                 >
-                  {day.format("D").toString()}
+                  <div>
+                    <span>{day.format("D").toString()}</span>
+                    {events
+                      .filter((item) => item.day === day.format("MM/DD/YY"))
+                      .map((item) => (
+                        <span> {item.title}</span>
+                      ))}
+                  </div>
                 </div>
               ))}
             </div>
