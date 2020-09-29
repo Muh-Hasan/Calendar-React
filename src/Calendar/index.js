@@ -10,7 +10,7 @@ export default function Calendar() {
   let startDay = value.clone().startOf("month").startOf("week");
   let endDay = value.clone().endOf("month").endOf("week");
   let day = startDay.clone().subtract(1, "day");
-
+  const { events } = useContext(EventsContext);
   useEffect(() => {
     let tempArray = [];
     while (day.isBefore(endDay, "day")) {
@@ -32,13 +32,10 @@ export default function Calendar() {
   function isToday(day) {
     return day.isSame(new Date(), "day");
   }
-  const { events } = useContext(EventsContext);
   function dayStyles(day) {
     if (beforeToday(day)) return "before";
     if (isSelected(day)) return "selected-day";
     if (isToday(day)) return "active-day";
-    if (events.filter((item) => item.day === value.format("MM/DD/YY")))
-      return "event-day";
     return "";
   }
   function currYear() {
@@ -92,13 +89,18 @@ export default function Calendar() {
           {calendar.map((week, i) => (
             <ul className="calendar-days" key={i}>
               {week.map((day, i) => (
+                <>
                 <li
                   key={i}
                   className={dayStyles(day)}
                   onClick={() => !beforeToday(day) && setValue(day)}
                 >
                   {day.format("D").toString()}
+                  {/* {events.filter(item => item.day === day.format('MM/DD/YY')).map((item) => (
+                    <li>{item.title}</li>
+                  ))} */}
                 </li>
+                </>  
               ))}
             </ul>
           ))}
