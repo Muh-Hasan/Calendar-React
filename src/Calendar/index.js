@@ -34,6 +34,8 @@ export default function Calendar() {
   }
   function dayStyles(day) {
     if (beforeToday(day)) return "before";
+    if (events.find((item) => item.day === day.format("MM/DD/YY")))
+      return "black";
     if (isSelected(day)) return "selected-day";
     if (isToday(day)) return "active-day";
     return "";
@@ -87,22 +89,17 @@ export default function Calendar() {
         </div>
         <div className="calendar-day-list">
           {calendar.map((week, i) => (
-            <ul className="calendar-days" key={i}>
+            <div className="calendar-days" key={i}>
               {week.map((day, i) => (
-                <>
-                <li
+                <div
                   key={i}
                   className={dayStyles(day)}
                   onClick={() => !beforeToday(day) && setValue(day)}
                 >
                   {day.format("D").toString()}
-                  {/* {events.filter(item => item.day === day.format('MM/DD/YY')).map((item) => (
-                    <li>{item.title}</li>
-                  ))} */}
-                </li>
-                </>  
+                </div>
               ))}
-            </ul>
+            </div>
           ))}
         </div>
       </div>

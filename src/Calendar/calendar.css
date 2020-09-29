@@ -43,7 +43,7 @@ body {
 
 .calendar,
 .calendar .add-event-day .add-event-day-field-btn,
-.calendar .calendar-days li:after {
+.calendar .calendar-days div:after {
   position: absolute;
   right: 0;
   left: 0;
@@ -63,7 +63,7 @@ body {
 .calendar .current-day-events ul,
 .calendar .add-event-day,
 .calendar .calendar-change-year,
-.calendar .calendar-days li {
+.calendar .calendar-days div {
   position: relative;
 }
 .calendar .calendar-left-side-day,
@@ -143,7 +143,7 @@ body {
   list-style: none;
   font-size: 0;
 }
-.calendar .calendar-days li,
+.calendar .calendar-days div,
 .calendar .calendar-week li,
 .calendar .calendar-month li {
   display: inline-block;
@@ -162,17 +162,16 @@ body {
   color: #171717;
   font-weight: 600;
 }
-.weekActive{
+.weekActive {
   color: #171717;
   font-weight: 600;
-  
 }
-.calendar .calendar-days li {
+.calendar .calendar-days div {
   width: calc(460px / 7);
   height: 50px;
   line-height: 50px;
 }
-.calendar .calendar-days li:after {
+.calendar .calendar-days div:after {
   content: attr(data-day);
   position: absolute;
   width: 40px;
@@ -180,18 +179,17 @@ body {
   line-height: 40px;
   color: #959595;
 }
-.calendar .calendar-days li.another-month:after {
+.calendar .calendar-days div.another-month:after {
   color: #ccc;
 }
-.calendar .calendar-days li:hover:after,
-.calendar .calendar-days li.selected-day:after,
-.calendar .calendar-days li.event-day:before,
-.calendar .calendar-days li.active-day:after {
+.calendar .calendar-days div:hover:after,
+.calendar .calendar-days div.selected-day:after,
+.calendar .calendar-days div.event-day:before,
+.calendar .calendar-days div.active-day:after {
   border-radius: 50%;
-
 }
-.calendar .calendar-days li:hover,
-.calendar .calendar-days li.selected-day {
+.calendar .calendar-days div:hover,
+.calendar .calendar-days div.selected-day {
   color: white;
   background: #ccc;
 }
@@ -203,7 +201,7 @@ body {
   right: 7px;
   background: #1400c7;
 }
-.calendar .calendar-days li.active-day {
+.calendar .calendar-days div.active-day {
   color: white;
   background: #ec364f;
 }
@@ -218,11 +216,14 @@ body {
   height: 30px;
   line-height: 30px;
 }
-.btn-remove{
-    border: none;
-    width: 15px;
-    font-weight: 600;
+.btn-remove {
+  border: none;
+  width: 15px;
+  font-weight: 600;
 }
-.before{
+.before {
   color: gray;
+}
+.black {
+  border: 1px solid black;
 }
